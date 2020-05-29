@@ -132,4 +132,4 @@ dmypy.json
 .vscode
 
 # keys and passwords
-# secret_settings.py
+secret_settings.py
