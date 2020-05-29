@@ -1,0 +1,62 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="text-center">
+                Тест задание ВКонтакте
+            </h1>
+            {% if friends %}
+
+            <div class="container-fluid">
+                <div class="table-responsive">
+
+                <p>Что то есть...</p>
+                <!-- Один из вариантов вывода инфы на странице -->
+                {% if version1 %}
+                    <div class="card-columns"></div>
+                        {% for friend in friends %}
+                        <div class="card p-3 mb-3">
+                            <blockquote class="blockquote mb-0 card-body">
+                                <p><a href="https://vk.com/id{{ friend.id }}">Имя: {{ friend.first_name }}, Фамилия: {{ friend.last_name }}</a></p>
+                                <footer class="blockquote-footer">-</footer>
+                            </blockquote>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center"  scope="col"> #</th>
+                            <th class="text-center"  scope="col">Фото</th>
+                            <th class="text-center"  scope="col">Имя</th>
+                            <th class="text-center"  scope="col">Фамилия</th>
+                            <th class="text-center"  scope="col">Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for friend in friends %}
+                            <tr>
+                                <td class="text-center" scope="row">{{ friend.num }}</td>
+                                <td class="text-cente rounded-circler"><img src="{{ friend.photo_50 }}" class="rounded mx-auto d-block" alt="Фото аккаунта"></td>
+                                <td class="text-center">{{ friend.first_name }}</td>
+                                <td class="text-center">{{ friend.last_name }}</td>
+                                <td class="text-center">
+                                    <a href="https://vk.com/id{{ friend.id }}" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
