@@ -8,7 +8,6 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 
 import requests
-# import vk
 
 
 def main_page(request):
@@ -50,8 +49,14 @@ def main_page(request):
                     # на сайте мы ещё залогинены а в вк нет.
                     # Или случилась ещё какая ошибка (error в data_json) Значит
                     # нужно выйти с сайта или заново залогиниться в вк...
-                    # будем выходить
-                    return redirect('landing:logouut_page')
+                    # Проверим, не истекла ли сесия токена
+                    if data_json['error']['error_code'] == 5:
+                        # Истекло время токена.
+                        # получим новый через аутификацию
+                        return redirect('social/login/vk-oauth2')
+                    else:
+                        # что то другое. Выходим с сайта
+                        return redirect('landing:logouut_page')
 
     context = {
         'user_is_anonym': user_is_anonym,
